@@ -1,0 +1,30 @@
+[package]
+name = "helix"
+version = "0.1.0"
+edition = "2021"
+description = "Real-time multi-sensor fusion engine: GPS + IMU + barometer via complementary filter"
+authors = ["Helix Contributors"]
+license = "MIT"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+crossbeam-channel = "0.5"
+nalgebra = "0.32"
+serde = { version = "1", features = ["derive"] }
+bincode = "1"
+anyhow = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+bincode = "1"
+
+[[bench]]
+name = "fusion_bench"
+harness = false
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
